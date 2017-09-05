@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-
-import csv
 import collections
+
+from .utils import read_csv_field, read_csv
 
 
 def list_sub(x, y):
     return [item for item in x if item not in y]
 
 
-class Yee(object):
+class AutoMap(object):
     def __init__(self, file_list, delimiter):
         self.delimiter = delimiter
         self.data = {}
@@ -64,28 +64,6 @@ class Yee(object):
                 new_d[k] = new_list
             d = new_d
         return d
-
-
-def read_csv_field(path, delimiter):
-    with open(path, 'rb') as csvfile:
-        reader = csv.reader(csvfile, delimiter=delimiter, quotechar='|')
-        return reader.next()
-
-
-def read_csv(path, delimiter, skip_first_line=True):
-    ret = {
-        'data': [],
-        'keys': {
-        }
-    }
-    with open(path, 'r') as ftr:
-        reader = csv.reader(ftr, delimiter=delimiter, quotechar='|')
-        fields = reader.next()
-        for i in range(len(fields)):
-            ret['keys'][fields[i]] = i
-        for j in reader:
-            ret['data'].append(j)
-    return ret
 
 
 def main():
